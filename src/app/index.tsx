@@ -1,98 +1,50 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, Text, StyleSheet, Image } from 'react-native';
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
+//ส่งออก เริ่ม     ฟังก์ชั่น
+export default function App() {
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
+    <View style={homeStyle.container}>
+
+      <Text style={homeStyle.title}>Nawinya</Text>
+
+      <Image
+        source={require('@/assets/images.jpeg')}
+        style={{
+          width: 200,
+          height: 200,
+          borderRadius: 100,
+          borderWidth: 5,
+          borderColor: "black"
+        }}
+      />
+
+      <Image
+        source={{url: "data:image/jpeg;base64,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" }}
+        style={{
+          width: 200,
+          height: 200,
+          borderRadius: 100,
+          borderWidth: 5,
+          borderColor: "black"
+
+        }}
+
+    </View>
+  )
 }
 
-export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
-
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
-
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
-
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
-  );
-}
-
-const styles = StyleSheet.create({
+//
+const homeStyle = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
-  },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
+    backgroundColor: "green",
+    flex: 1, // ขยายเต็มพื้นที่
+    alignItems: "center"
   },
   title: {
-    textAlign: 'center',
-  },
-  code: {
-    textTransform: 'uppercase',
-  },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
-  },
-});
+    color: "white", // สีอักษร
+    fontSize: 32,
+    fontWeight: 700, // ความหนาอักษร 100-900
+    fontStyle: "italic",
+    textAlign: "center"
+  }
+})
